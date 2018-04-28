@@ -1,0 +1,890 @@
+{
+	"info": {
+		"_postman_id": "d8c2ad2d-2eb1-2865-5a58-0a24da5691fe",
+		"name": "Hindawi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7a448fd-3c6a-46e2-8ae2-b52fbf4daabb",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"token\", jsonData.token);",
+							"pm.environment.set(\"userID\", jsonData.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\": \"admin\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/users/authenticate",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collections",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d08631f-5554-434c-a7d1-1398abc59b90",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f1758a5-3423-43b9-ab61-455b48cd1ac4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collections",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c55ce5b-83a5-420c-87a5-4113f15bf488",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"collection\",\n\t\"owners\": [\n\t\t\"{{userId}}\"\n\t],\n\t\"customId\": \"2423416\",\n\t\"fragments\": [\n\t\t\"e25f67af-5208-4e36-ab8c-b4f87fe4da4c\"\n\t]\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collections",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"customId\": \"3821312\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collections",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/users/{{userID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Sebastian\",\n    \"lastName\": \"Mihalache\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsInvitations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44927491-f81a-45a7-90f8-a3e89f88b6cd",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"userID\", jsonData.userId);",
+							"pm.environment.set(\"invitationID\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"sebi.mihalache+rev6@gmail.com\",\n  \"role\": \"reviewer\",\n  \"firstName\": \"Simon\",\n  \"lastName\": \"Amman\",\n  \"affiliation\": \"Swiss\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/invitations",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"invitations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsInvitations",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isAccepted\": false,\n  \"reason\": \"nu stiu boss\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/invitations/{{invitationID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"invitations",
+						"{{invitationID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsInvitations (decline)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"invitationToken\": \"{{invToken}}\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/invitations/{{invitationID}}/decline",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"invitations",
+						"{{invitationID}}",
+						"decline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsInvitations",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"isAccepted\": false,\n\t\"reason\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/invitations?role=reviewer",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"invitations"
+					],
+					"query": [
+						{
+							"key": "role",
+							"value": "reviewer"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsInvitations",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/invitations/{{invitationID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"invitations",
+						"{{invitationID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"sebi.mihalache+rev6@gmail.com\",\n\t\"token\": \"{{passwordResetToken}}\",\n\t\"password\": \"password\",\n\t\"firstName\": \"Estoy\",\n\t\"lastName\": \"Disgraciado\",\n\t\"affiliation\": \"Khazahstan\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/users/reset-password",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "teams",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api/teams",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "teams",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/teams/{{teamId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"teams",
+						"{{teamId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsUsers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"handlingEditor\",\n\t\"role\": false,\n\t\"isSubmitting\": true,\n\t\"isCorresponding\": false\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/users",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"users"
+					]
+				},
+				"description": "agree/decline to work on a manuscript"
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsUsers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/users/{{userID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsUsers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/users",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsUsers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"isSubmitting\": false,\n    \"isCorresponding\": true,\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"affiliation\": \"UCLA\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/users/{{userID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manuscripts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/projects/{{collectionID}}/versions/718b68f7-9b73-45a2-ba92-deae8951e619/manuscript",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"projects",
+						"{{collectionID}}",
+						"versions",
+						"718b68f7-9b73-45a2-ba92-deae8951e619",
+						"manuscript"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collectionsInvitations",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{domain}}/api/collections/{{collectionID}}/invitations/{{invitationID}}",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"collections",
+						"{{collectionID}}",
+						"invitations",
+						"{{invitationID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "emails",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"sebi.mihalache+1212@gmail.com\",\n\t\"type\": \"invite\",\n\t\"role\": \"handlingEditor\"\n}"
+				},
+				"url": {
+					"raw": "{{domain}}/api/emails",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"emails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fragments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api/collections/{{collId}}/fragments/{{fragId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"collections",
+						"{{collId}}",
+						"fragments",
+						"{{fragId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
